@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Rock Paper Scissors Game</title>
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+</head>
+<body class=" bg-gray-950">
+ 
+   
+    <section class="max-w-[1200px] mx-auto py-[20px] min-h-[100vh]">
+        <div data-aos="fade-down" data-aos-duration="1000" id="container" class=" md:rounded-xl p-8 bg-white shadow-xl">
+
+            <div id="text">
+                <h1 class="text-center font-bold text-[30px] md:text-[40px] leading-[45px]">Rock Paper Scissors Game</h1>
+                <h1 class="text-center font-semibold text-[20px] md:text-[30px] mt-8 text-gray-500">You VS Robot</h1>
+            </div>
+            
+            <Div id="pick" class="grid mx-auto mt-8  place-content-center gap-4 grid-cols-2 md:grid-cols-3">
+                <button id="rock" class="pb-4 bg-white border-2 border-gray-300 hover:border-green-500 rounded-xl cursor-pointer ">
+                    <img class="md:max-w-[200px] max-w-[100px] mx-auto" src="/RockPaperScissors/img/rock.png" alt="">
+                    <p class="text-[20px] font-semibold text-center">Rock</p>
+                </button>
+                <button id="paper" class="pb-4 bg-white border-2 border-gray-300 hover:border-green-500 rounded-xl cursor-pointer ">
+                    <img class="md:max-w-[200px] max-w-[100px] mx-auto" src="/RockPaperScissors/img/paper.png" alt="">
+                    <p class="text-[20px] font-semibold text-center">Paper</p>
+                </button>
+                <button id="scissors" class="pb-4 bg-white border-2 border-gray-300 hover:border-green-500 rounded-xl cursor-pointer ">
+                    <img class="md:max-w-[200px] max-w-[100px] mx-auto" src="/RockPaperScissors/img/scissors.png" alt="">
+                    <p class="text-[20px] font-semibold text-center">Scissors</p>
+                </button>
+            </Div>
+            <div class="text-center mt-8 font-semibold text-[25px] md:text-[30px] text-gray-700">
+                <p id="whoWin">Select</p>
+            </div>
+            <div class="flex gap-6 justify-center text-center font-semibold text-[20px] text-gray-500">
+                <div class="flex gap-2">
+                     <p  class=" ">You:</p>  
+                     <p id="you_scr">0</p>
+                </div>
+                 <div class="flex gap-2">
+                    <p  class=" ">Robot:</p> 
+                    <p id="robot_scr">0</p>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+
+    <!-- AOS JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <script>
+        let rock = document.getElementById('rock');
+        let paper = document.getElementById('paper');
+        let scissors = document.getElementById('scissors');
+
+        let whoWin = document.getElementById('whoWin');
+
+        let youWin = 0;
+        let robotWin = 0;
+
+        let you_scr = document.getElementById('you_scr');
+        let robot_scr = document.getElementById('robot_scr');
+
+        let user_pick;
+        let robot_pick;
+
+        let gameArray = ["rock", "paper", "scissors"];
+        
+        function determineWinner(user_pick) {
+            let robot_pick = gameArray[Math.floor(Math.random() * gameArray.length)];
+            
+            
+            if (robot_pick === user_pick) {
+                whoWin.innerHTML = "Tie"
+            } else if ((robot_pick === "rock" && user_pick === "paper") ||
+                       (robot_pick === "paper" && user_pick === "scissors") ||
+                       (robot_pick === "scissors" && user_pick === "rock")) {
+                youWin = youWin + 1;
+                you_scr.innerHTML = youWin
+                whoWin.innerHTML = "YOU WIN 🎉"
+            } else {
+                robotWin = robotWin + 1;
+                robot_scr.innerHTML = robotWin
+                whoWin.innerHTML = "ROBOT WIN 🤨"
+            }
+
+           
+        }
+
+        rock.onclick = function() {
+            determineWinner("rock");
+        }
+        paper.onclick = function() {
+            determineWinner("paper");
+        }
+        scissors.onclick = function() {
+            determineWinner("scissors");
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Planit - Your Ultimate Task Manager & To-Do List App</title>
+
+    <!-- Meta Descriptions -->
+    <meta name="description" content="Planit is your ultimate task manager and to-do list app. Add, save, and manage your tasks and daily routines effortlessly. Built with HTML, CSS, Tailwind CSS, and JavaScript for a seamless experience." />
+
+    <!-- Keywords -->
+    <meta name="keywords" content="task manager, to-do list app, daily routine, task management, productivity, Planit, HTML, CSS, Tailwind CSS, JavaScript" />
+
+
+    <!-- Author -->
+    <meta name="author" content="Haseeb Ahmed" />
+
+    <!-- Alternative Favicon formats  -->
+    <link rel="icon" href="/Planit_ToDo/assets/Planit.png" type="jpg" /> 
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d9ef7f2a1c.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Planit_ToDo/style.css" />
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+</head>
+
+<body class="">
+
+
+
+    <!-- navbar start-->
+    <section class="mx-auto ">
+        <nav id="nav" class=" md:fixed md:top-0 flex items-center  bg-primary w-full md:px-5 px-4 py-3 md:py-3 border-b border-gray-300 z-10">
+            <div class="w-full flex items-center gap-2 justify-between">
+                <!-- Logo -->
+                <div id="logo" class="hidden md:flex">
+                    <img class="rounded-full w-10 h-10 object-cover" src="/Planit_ToDo/assets/Planit.png" alt="">
+                    <span class="font-semibold text-2xl md:text-3xl">Planit</span>
+                </div>
+                <!-- Search Bar -->
+                <div id="search-bar" class="w-full md:w-2/5 ">
+                    <div class=" bg-tertiary rounded-3xl border border-gray-200">
+                        <div class=" flex items-center gap-4 pr-4">
+                            <input id="search" type="text" name="search" placeholder="Search"
+                                class="bg-secondary  w-full rounded-l-3xl pl-6 py-2 focus:outline-none focus:bg-tertiary">
+                            <div id="search-img" class=" cursor-pointer">
+                                <i class="fa-solid fa-magnifying-glass text-lightest"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile Image -->
+                <div class="flex  items-center">
+                    <a href="https://haseebkhan.online/#contact" target="_blank" class=" border rounded-full p-1 bg-white  flex justify-center items-center hover:shadow-md">
+                        <i class="fa-regular fa-comment text-xl flex justify-center items-center w-8 h-8 text-lightest"></i>
+                   </a>
+                </div>
+            </div>
+        </nav>
+    </section> 
+    <!-- navbar end-->
+
+    <div class=" mb-8 px-4 w-full min-h-screen">
+        <div class=" flex items-center justify-center pt-4 ">
+
+            <div class="w-full">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold">Daily Routine</h2>
+                    <!-- When user clicks on it, add daily task div -->
+                    <button class="add-daily-task-btn text-reverse-bright rounded-xl bg-reverse-secondary shadow-xl">
+                        <i class="fa-solid fa-plus flex justify-center items-center p-3"></i>
+                    </button>
+                </div>
+            
+                <!-- This is the container where we store daily task div -->
+                <div id="daily-task-container" class=" flex flex-col gap-4">
+                    <!-- This is the daily task div that we will create; this is a sample daily task div -->
+                </div>
+            </div>
+            
+            <!-- Daily Task Modal -->
+            <div id="daily-task-modal" class="hidden shadow-2xl fixed inset-0 h-full bg-gray-800 bg-opacity-50  z-50">
+                <div class=" bg-primary w-full h-full flex flex-col p-5">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl md:text-2xl font-semibold">Add Task</h2>
+                    </div>
+                    <form id="daily-task-form" class="flex flex-col justify-between w-full h-full  pt-8">
+                        <div>
+                            <div class="mb-4">
+                                <label for="daily-task-description" class="block text-sm font-bold mb-2">Task Description</label>
+                                <textarea id="daily-task-description" rows="4" class="w-full px-3 py-2 border border-gray-200 rounded-lg leading-tight focus:outline-none  focus:border-gray-400"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="daily-task-time" class="block text-sm font-bold mb-2">Time</label>
+                                <input type="time" id="daily-task-time" class="w-full px-3 py-2 border border-gray-200 rounded-lg leading-tight focus:outline-none  focus:border-gray-400">
+                            </div>
+                        </div>
+                        <div class="flex justify-between gap-4">
+                            <button type="button" id="daily-cancel-btn" class="bg-gray-500 text-white w-full py-2 rounded-lg">Cancel</button>
+                            <button type="submit" id="daily-save-data" class="bg-yellow-500 hover:shadow-md text-white w-full py-2 rounded-lg">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            
+
+        </div>  
+    </div>
+
+
+
+
+    <script src="/Planit_ToDo/script.js"></script>
+    
+</body>
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Planit - Your Ultimate Task Manager & To-Do List App</title>
+
+    <!-- Meta Descriptions -->
+    <meta name="description" content="Planit is your ultimate task manager and to-do list app. Add, save, and manage your tasks and daily routines effortlessly. Built with HTML, CSS, Tailwind CSS, and JavaScript for a seamless experience." />
+
+    <!-- Keywords -->
+    <meta name="keywords" content="task manager, to-do list app, daily routine, task management, productivity, Planit, Haseeb Khan, Web developer project, todo website, todo." />
+
+
+    <!-- Author -->
+    <meta name="author" content="Haseeb Ahmed" />
+
+
+   <link rel="icon" href="/Planit_ToDo/assets/Planit.png" type="jpg" /> 
+
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d9ef7f2a1c.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Planit_ToDo/style.css" />
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+</head>
+
+<body class="w-full ">
+
+    <style>
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        #daily-task-modal,
+        #task-modal {
+            z-index: 50;
+        }
+    </style>
+
+                <!--get user name -->
+        <div id="welcomeModal" class=" hidden flex items-center justify-center">
+            <div  class="fixed z-[100] inset-0 bg-gray-500 bg-opacity-90 ">
+                <div class="flex flex-col justify-center items-center h-full w-full mx-auto">
+                    <div class="rounded-lg shadow-lg bg-primary p-6 ">
+                    <div class="">
+                    <h1 class="text-2xl font-bold mb-2 text-center ">Welcome to Planit!</h1>
+                    <p class="mb-4 text-md text-center">Keep tasks, routines, and ideas in order.</p>
+                    <div class="flex flex-col gap-2 pt-4">
+                        <input id="userNameInput" type="text" placeholder="Enter your first name:" class=" border border-gray-300 p-2 rounded">
+                        <button id="submitBtn" class=" p-2 rounded bg-yellow-500 hover:shadow-md text-bright text-shadow text-white  font-semibold rounded">Submit</button>
+                    </div>
+                    </div>  
+                    </div>  
+                </div>
+            </div>      
+        </div>
+            
+                
+
+
+    <!-- navbar start-->
+    <section class="mx-auto ">
+        <nav id="nav" class=" md:fixed md:top-0 flex items-center  bg-primary w-full md:px-5 px-4 py-3 md:py-3 border-b border-gray-200 z-10">
+            <div class="w-full flex items-center gap-2 justify-between">
+                <!-- Logo -->
+                <div id="logo" class="hidden md:flex">
+                    <img class="rounded-full w-10 h-10 object-cover" src="/Planit_ToDo/assets/Planit.png" alt="">
+                    <span class="font-semibold text-2xl md:text-3xl">Planit</span>
+                </div>
+                <!-- Search Bar -->
+                <div id="search-bar" class="w-full md:w-2/5 ">
+                    <div class=" bg-tertiary rounded-3xl border border-gray-200">
+                        <div class=" flex items-center gap-4 pr-4">
+                            <input id="search" type="text" name="search" placeholder="Search"
+                                class="bg-secondary  w-full rounded-l-3xl pl-6 py-2 focus:outline-none focus:bg-tertiary">
+                            <div id="search-img" class=" cursor-pointer">
+                                <i class="fa-solid fa-magnifying-glass text-lightest"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile Image -->
+                <div class="flex  items-center">
+                    <a href="https://haseebkhan.online/#contact" target="_blank" class=" border rounded-full p-1 bg-white  flex justify-center items-center ">
+                        <i class="fa-regular fa-comment text-xl flex justify-center items-center w-8 h-8 text-lightest"></i>
+                   </a>
+                <!-- <button href="https://haseebkhan.online/#contact" target="_blank" class=" border border-gray-100 rounded-full p-1 bg-white  flex justify-center items-center">
+                    <i class="fa fa-download text-xl flex justify-center items-center w-8 h-8 text-light" aria-hidden="true"></i>
+                </button> -->
+                </div>
+            </div>
+        </nav>
+    </section> 
+    <!-- navbar end-->
+
+
+    <section id="home" class="w-[100%] md:flex md:mt-16 w-full bg-primary mx-auto justify-center items-start ">
+        <!-- left menu start rounded-ee-xl-->
+        <section id="menu"
+            class="bg-primary w-[20%] hidden md:block border-r border-gray-300  flex flex-col justify-between  mx-auto "
+           >
+
+            <div class=" px-3 w-full min-h-[800px]">
+                <div class=" flex items-center justify-center pt-6 ">
+
+                    <div class="w-full">
+                        <div class="flex justify-between gap-4 items-center mb-8">
+                            <h2 class="text-2xl font-bold">Daily Routine</h2>
+                            <!-- When user clicks on it, add daily task div -->
+                            <button
+                                class="add-daily-task-btn text-reverse-bright rounded-xl bg-reverse-secondary shadow-xl">
+                                <i class="fa-solid fa-plus flex justify-center items-center p-3"></i>
+                            </button>
+                        </div>
+
+                        <!-- This is the container where we store daily task div -->
+                        <div id="daily-task-container" class=" flex flex-col gap-4">
+                            <!-- This is the daily task div that we will create; this is a sample daily task div -->
+                        </div>
+                    </div>
+
+                    <!-- Daily Task Modal -->
+                    <div id="daily-task-modal"
+                        class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg p-6 w-96 ">
+                            <form id="daily-task-form">
+                                <div class="mb-4">
+                                    <label for="daily-task-description" class="block text-sm font-bold mb-2">Task
+                                        Description</label>
+                                    <textarea id="daily-task-description" rows="4"
+                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg leading-tight focus:outline-none  focus:border-gray-400"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="daily-task-time" class="block text-sm font-bold mb-2">Time</label>
+                                    <input type="time" id="daily-task-time"
+                                        class="w-full px-3 py-2 border border-gray-200 rounded-lg leading-tight focus:outline-none  focus:border-gray-400">
+                                </div>
+                                <div class="flex justify-between gap-4">
+
+                                    <button type="button" id="daily-cancel-btn"
+                                        class="bg-gray-500 text-white w-full py-2 rounded-lg">Cancel</button>
+                                    <button type="submit" id="daily-save-data"
+                                        class="bg-yellow-500 hover:shadow-md text-white font-semibold py-2 min-w-40 rounded-lg ">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </section>
+
+        <!-- right main start -->
+        <section id="main" class=" bg-primary mb-8 min-h-screen px-4 md:w-[80%]" >
+            <!--image-->
+            <div class="hidden md:block mt-0.5 aspect-[5/1] rounded-xl mt-4 shadow-lg">
+                <img class="h-full w-full object-cover object-top rounded-xl"
+                    src="/Planit_ToDo/assets/taskmanager_quote.webp"
+                    alt="">
+            </div>
+
+            <!--  -->
+            <div class=" ">
+
+
+
+                <!--heading-->
+                <div class=" md:pt-6 pt-4">
+                    <h3 class="text-2xl md:text-4xl text-bright font-bold line-clamp-1">Hello <button id="userNameShow"></button>!</h3>
+                    <p class="text-light md:text-lg text-sm mt-1">Keep tasks, routines, and ideas in order.
+                        </p>
+                </div>
+
+                <!--daily task show only for mobile-->
+                <div class="mt-8 ">
+                    <a href="/Planit_ToDo/Pages/index.html"
+                        class=" relative md:hidden w-full  cursor-pointer rounded-xl bg-red-500">
+                        <h3 class="text-lg md:text-2xl text-bright font-semibold mb-1">Daily Routine</h3>
+                        <div class="aspect-[4/2] ">
+                        <img class="shadow-sm border border-gray-300 object-cover object-center w-full h-full rounded-lg"
+                            src="/Planit_ToDo/assets/dailytask.png"
+                            alt="">
+                        </div>    
+                    </a>
+                </div>
+
+                <div class="container mx-auto mt-8 ">
+                    <div class=" md:hidden flex justify-between items-center">
+                        <h3 class="text-lg md:text-2xl text-bright font-semibold mb-2 ">Your Task</h3>
+                        <i
+                            class="fa-solid fa-arrow-right-long flex justify-center items-center rounded-full text-lg text-light font-semibold"></i>
+                    </div>
+
+                    <!--main data to store-->
+                    <div class="w-full">
+
+                        <!-- Swiper -->
+                        <div class="swiper mySwiper ">
+                            <!--swiper-wrapper  swiper-slide  -->
+                            <div class="swiper-wrapper  items-start  ">
+
+
+                                <!--To do list start -->
+                                <div class="swiper-slide">
+                                    <div class="">
+                                        <!--title-->
+                                        <div
+                                            class="flex justify-between items-center px-1 shadow-md bg-[#02AAFF] text-white rounded-xl shadow-md ">
+                                            <p class="font-medium text-md px-2  py-2">
+                                                To Do
+                                            </p>
+                                            <!-- Button to add task -->
+                                            <button
+                                                class="add-task-btn text-black bg-primary shadow-md rounded-lg cursor-pointer  ">
+                                                <i class="fas fa-plus flex justify-between items-center p-2 "></i>
+                                            </button>
+                                        </div>
+                                        <!--data-->
+                                        <div id="todo-tasks-container" class="flex flex-wrap flex-col-reverse mt-4 w-full gap-3 mx-auto">
+                                            <!-- Task divs will be inserted here by JavaScript -->
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--To do list end -->
+
+
+                                <!--inprogress list start -->
+                                <div class="swiper-slide">
+                                    <div>
+                                        <!--title-->
+                                        <div
+                                            class="flex justify-between items-center px-1 shadow-md bg-[#f4c300] text-shadow text-white rounded-xl">
+                                            <p class="font-medium text-md px-2  py-2">
+                                                In Progress
+                                            </p>
+                                            <!-- Button to add task -->
+                                            <button
+                                                class="add-task-btn text-black bg-primary shadow-md rounded-lg cursor-pointer  ">
+                                                <i class="fas fa-plus flex justify-between items-center p-2 "></i>
+                                            </button>
+                                        </div>
+                                        <!--data-->
+                                        <div id="inprogress-tasks-container"
+                                            class="flex flex-wrap  flex-col-reverse w-full mt-4 gap-3 max-w-full mx-auto">
+                                            <!-- Task divs will be inserted here by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--inprogress list end -->
+
+
+
+                                <!--planes list start -->
+                                <div class="swiper-slide">
+                                    <div>
+                                        <!--title-->
+                                        <div
+                                            class="flex justify-between items-center px-1 shadow-md bg-[#27AD02] text-white rounded-xl ">
+                                            <p class="font-medium text-md px-2  py-2">
+                                                Planes
+                                            </p>
+                                            <!-- Button to add task -->
+                                            <button
+                                                class="add-task-btn text-black bg-primary shadow-md rounded-lg cursor-pointer  ">
+                                                <i class="fas fa-plus flex justify-between items-center p-2 "></i>
+                                            </button>
+                                        </div>
+                                        <!--data-->
+                                        <div id="planes-tasks-container"
+                                            class="flex flex-wrap flex-col-reverse w-full mt-4 gap-3 max-w-full mx-auto">
+                                            <!-- Task divs will be inserted here by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--planes list end -->
+
+                                <!--Ideas list start -->
+                                <div class="swiper-slide">
+                                    <div>
+                                        <!--title-->
+                                        <div
+                                            class="flex justify-between items-center px-1 shadow-md bg-[#ff4f4f] text-white rounded-xl ">
+                                            <p class="font-medium text-md px-2  py-2">
+                                                Ideas
+                                            </p>
+                                            <!-- Button to add task -->
+                                            <button
+                                                class="add-task-btn text-black bg-primary shadow-md rounded-lg cursor-pointer  ">
+                                                <i class="fas fa-plus flex justify-between items-center p-2 "></i>
+                                            </button>
+                                        </div>
+                                        <!--data-->
+                                        <div id="ideas-task-container"
+                                            class="flex flex-wrap flex-col-reverse w-full mt-4 gap-3 max-w-full mx-auto">
+                                            <!-- Task divs will be inserted here by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Ideas list end -->
+
+
+                            </div>
+                            <!-- <div class="swiper-pagination"></div> -->
+                        </div>
+
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="task-modal"
+                        class="fixed hidden md:px-4 inset-0 bg-gray-500 bg-opacity-90 h-full  flex justify-center items-center ">
+                        <div class="pb-16 md:pb-0 md:rounded-lg shadow-lg w-full h-full md:h-auto md:w-full md:max-w-lg py-5 px-5 bg-primary text-bright">
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-xl md:text-2xl font-semibold">Add Task</h2>
+                                <div class="flex items-center">
+                                    <button id="cancel-btn" class="text-bright hover:text-red-600"><i
+                                            class="fas fa-times text-2xl"></i></button>
+                                </div>
+                            </div>
+                            <form id="task-form" class="h-full flex flex-col justify-between">
+
+                                <div class="h-full ">
+                                    <div class="mb-4 mt-6 ">
+                                        <input id="task-title"
+                                            class="w-full h-full rounded text-lg py-1 leading-tight focus focus:outline-none focus:border-b focus:border-gray-100 "
+                                            type="text" placeholder="Title">
+                                    </div>
+                                    <div class="mb-2 flex flex-col h-[75%]">
+                                        <textarea id="task-description"
+                                            class="h-full rounded w-full leading-tight text-lg focus:outline-none focus:border-b focus:border-gray-300"
+                                            rows="5" placeholder="Write task..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="mt-3 ">
+                                        <label for="" class="leading-tight text-light font-semibold">Deadline</label>
+                                        <input type="date" id="completion-date"
+                                            class="w-full text-lightest mt-1 border p-2 rounded leading-tight focus:outline-none focus:border-b focus:border-gray-100">
+                                    </div>
+                                    <div class="mt-4 md:mb-5 flex ">
+                                        <button id="save-data"
+                                            class="bg-yellow-500 hover:shadow-md text-white font-semibold py-2 min-w-40 rounded-lg">Save</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--------------------------------->
+        </section>
+
+    </section>
+    
+
+    <!--%*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: false,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                },
+                840: {
+                    slidesPerView: 3,
+                },
+                1000: {
+                    slidesPerView: 4,
+                },
+            },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: false,
+            },
+        });
+    </script>
+    <!--%*&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+
+
+    <script src="/Planit_ToDo/script.js"></script>
+</body>
+
+</html>
